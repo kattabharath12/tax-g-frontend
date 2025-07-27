@@ -6,10 +6,8 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "prisma migrate deploy",
-    "railway:deploy": "prisma migrate deploy && npm run build"
-  }
-}
+    "postbuild": "prisma migrate deploy"
+  },
   "prisma": {
     "seed": "tsx --require dotenv/config scripts/seed.ts"
   },
