@@ -5,8 +5,10 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files
+# Copy package files AND prisma schema before installing
 COPY package.json package-lock.json* ./
+COPY prisma ./prisma
+
 # Use npm install instead of npm ci
 RUN npm install --legacy-peer-deps
 
@@ -19,7 +21,7 @@ COPY . .
 # Set environment variable for build
 ENV SKIP_ENV_VALIDATION=1
 
-# Generate Prisma client BEFORE building
+# Generate Prisma client BEFORE building (schema is already copied)
 RUN npx prisma generate
 
 # Build the application
